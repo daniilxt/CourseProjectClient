@@ -82,6 +82,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_huge_40"
             android:text="@string/auth_frg__btn_sign_in"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_massive__16"
             android:background="@drawable/auth_frg__rounded_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
