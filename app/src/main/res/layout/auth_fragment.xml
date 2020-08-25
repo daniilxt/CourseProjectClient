@@ -8,21 +8,22 @@
     tools:context=".main.MainActivity">
 
     <LinearLayout
+        android:id="@+id/auth_frg__login_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_big_30"
+        android:layout_marginEnd="@dimen/spacing_big_30"
         android:layout_marginBottom="@dimen/spacing_mid_20"
         android:background="@drawable/auth_frg__rounded_input"
         android:orientation="horizontal"
         android:paddingStart="@dimen/spacing_half_big_15"
         android:paddingTop="@dimen/spacing_half_big_15"
         android:paddingBottom="@dimen/spacing_half_big_15"
-        android:layout_marginEnd="@dimen/spacing_big_30"
-        android:layout_marginStart="@dimen/spacing_big_30"
         app:layout_constraintBottom_toTopOf="@+id/auth_frg__password_layout"
         tools:layout_editor_absoluteX="30dp">
 
         <ImageView
-            android:id="@+id/manual_frg__search"
+            android:id="@+id/auth_frg__login"
             android:layout_width="@dimen/slightly_large_icon_25"
             android:layout_height="@dimen/slightly_large_icon_25"
             android:layout_marginEnd="@dimen/spacing_half_big_15"
@@ -30,7 +31,7 @@
             android:src="@drawable/auth_frg__user_icon" />
 
         <EditText
-            android:id="@+id/manual_frg__input_qr"
+            android:id="@+id/auth_frg__login_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -39,53 +40,50 @@
 
     </LinearLayout>
 
-<!--    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/auth_frg__login_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/half_big_icon_30"
-        android:layout_marginEnd="@dimen/half_big_icon_30"
-        app:layout_constraintBottom_toTopOf="@+id/auth_frg__password_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="@dimen/spacing_mid_20"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <EditText
-            android:id="@+id/auth_frg__login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/auth_frg__login_hint"
-            android:inputType="textPersonName"
-            android:textSize="@dimen/font_mid_20" />
-    </com.google.android.material.textfield.TextInputLayout>-->
-
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
         android:id="@+id/auth_frg__password_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_big_30"
         android:layout_marginEnd="@dimen/half_big_icon_30"
+        android:background="@drawable/auth_frg__rounded_input"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/spacing_half_big_15"
+        android:paddingTop="@dimen/spacing_half_big_15"
+        android:paddingBottom="@dimen/spacing_half_big_15"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="30dp">
+
+        <ImageView
+            android:id="@+id/auth_frg__password"
+            android:layout_width="@dimen/slightly_large_icon_25"
+            android:layout_height="@dimen/slightly_large_icon_25"
+            android:layout_marginEnd="@dimen/spacing_half_big_15"
+            android:contentDescription="@string/auth_frg__login_input"
+            android:src="@drawable/auth_frg__password_icn" />
 
         <EditText
-            android:id="@+id/auth_frg__password"
+            android:id="@+id/auth_frg__password_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:hint="@string/auth_frg__login_hint"
-            android:inputType="textPassword"
-            android:textSize="@dimen/font_mid_20" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:inputType="textPassword" />
 
-    <Button
-        android:id="@+id/auth_frg__btn_sign_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_huge_40"
-        android:text="@string/auth_frg__btn_sign_in"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/auth_frg__password_layout" />
+    </LinearLayout>
+        <Button
+            android:id="@+id/auth_frg__btn_sign_in"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/spacing_huge_40"
+            android:layout_marginEnd="@dimen/spacing_huge_40"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_huge_40"
+            android:text="@string/auth_frg__btn_sign_in"
+            android:background="@drawable/auth_frg__rounded_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/auth_frg__password_layout" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
