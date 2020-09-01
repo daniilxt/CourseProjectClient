@@ -6,7 +6,10 @@
     <dimen name="half_big_icon_30">30dp</dimen>
     <dimen name="slightly_large_icon_25">25dp</dimen>
 
-
+    <dimen name="spacing_gigantic_140">140dp</dimen>
+    <dimen name="spacing_double_gigantic_280">280dp</dimen>
+    <dimen name="spacing_pre_gigantic_115">115dp</dimen>
+    <dimen name="double_spacing_big_60">60dp</dimen>
     <dimen name="spacing_middle_huge_50">50dp</dimen>
     <dimen name="spacing_huge_40">40dp</dimen>
     <dimen name="spacing_big_30">30dp</dimen>

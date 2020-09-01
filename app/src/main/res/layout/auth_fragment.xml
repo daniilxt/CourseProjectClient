@@ -51,6 +51,7 @@
         android:paddingStart="@dimen/spacing_half_big_15"
         android:paddingTop="@dimen/spacing_half_big_15"
         android:paddingBottom="@dimen/spacing_half_big_15"
+        android:layout_marginBottom="@dimen/spacing_gigantic_140"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:hint="@string/auth_frg__login_hint"
+            android:hint="@string/auth_frg__login_password_hint"
             android:inputType="textPassword" />
 
     </LinearLayout>
