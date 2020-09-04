@@ -8,6 +8,7 @@
     tools:context=".main.MainActivity">
 
     <EditText
+        android:id="@+id/cabinet_frg__text"
         android:layout_width="match_parent"
         android:layout_height="@dimen/spacing_double_gigantic_280"
         app:layout_constraintBottom_toBottomOf="parent"

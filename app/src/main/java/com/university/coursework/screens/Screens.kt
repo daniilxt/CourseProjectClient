@@ -1,18 +1,27 @@
 package com.university.coursework.screens
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.university.coursework.main.auth.AuthFragment
 import com.university.coursework.main.cabinet.CabinetFragment
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
-class AuthScreen : SupportAppScreen() {
+class AuthScreen() : SupportAppScreen() {
     override fun getFragment(): Fragment? {
         return AuthFragment.newInstance()
     }
 }
 
-class CabinetScreen : SupportAppScreen() {
+class CabinetScreen(str: String) : SupportAppScreen() {
+    private val bundle = Bundle()
+    private val token = str
+
     override fun getFragment(): Fragment? {
-        return CabinetFragment.newInstance()
+        val frg = CabinetFragment.newInstance()
+        if (token.isNotEmpty()) {
+            bundle.putString("token", token)
+            frg.arguments = bundle
+        }
+        return frg
     }
 }

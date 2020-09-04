@@ -74,7 +74,7 @@ class AuthFragment : Fragment() {
     private fun onResponse(it: ValidateUserService.CheckUserDto?) {
         Timber.i("DATA IS ${it.toString()}")
         if (it != null) {
-            CiceroneHelper.router().navigateTo(CabinetScreen())
+            CiceroneHelper.router().navigateTo(CabinetScreen(it.token))
         } else {
             Toast.makeText(requireContext(), "Проверьте логин/пароль", Toast.LENGTH_SHORT).show()
         }
