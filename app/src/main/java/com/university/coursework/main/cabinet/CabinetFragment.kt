@@ -8,9 +8,13 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.github.razir.progressbutton.attachTextChangeAnimator
 import com.github.razir.progressbutton.bindProgressButton
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.university.coursework.R
+import com.university.coursework.adapters.ViewPagerAdapter
 import com.university.coursework.api.person.PersonApi
 import com.university.coursework.api.validate_user.ValidateUserApi
 import com.university.coursework.api.validate_user.ValidateUserService
@@ -40,18 +44,33 @@ class CabinetFragment : Fragment() {
         if (bundle != null) {
             TOKEN = bundle.getString("token").toString()
         }
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+        initTabs()
+/*        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
 
         PersonApi.getAllPerson(TOKEN) {
             onResponse(it)
-        }
+        }*/
+
+
     }
 
+    private fun initTabs() {
+        val viewPager: ViewPager2 = requireActivity().findViewById(R.id.main_activity__view_pager)
+        val adapter = ViewPagerAdapter(requireActivity().supportFragmentManager, lifecycle)
+        viewPager.adapter = adapter
+
+        val tabs: TabLayout = requireActivity().findViewById(R.id.main_activity__tabs)
+        val titles = listOf("Группы", "Люди", "Предметы")
+        TabLayoutMediator(tabs, viewPager) { tab, position ->
+            tab.text = titles[position]
+        }.attach()
+    }
+}
+/*
     private fun onResponse(it: ArrayList<Person?>?) {
         it?.forEach {
             if (it != null) {
                 println("Name: ${it.firstName} , Surname: ${it.lastName}")
             }
         }
-    }
-}
+    }*/

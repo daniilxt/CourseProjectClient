@@ -10,7 +10,7 @@ import timber.log.Timber
 
 //const val BASE_URL = "https://letbilet.ru/"
 //const val BASE_URL = "http://59e110df23f7.ngrok.io/"
-const val BASE_URL = "http://b63401e4efc6.ngrok.io"
+const val BASE_URL = "http://0c12c1a74d79.ngrok.io"
 
 object RetrofitClient {
 
