@@ -14,6 +14,7 @@ import com.university.coursework.R
 import com.university.coursework.api.person.PersonApi
 import com.university.coursework.api.validate_user.ValidateUserApi
 import com.university.coursework.api.validate_user.ValidateUserService
+import com.university.coursework.models.dto.Person
 import kotlinx.android.synthetic.main.auth_fragment.*
 import kotlinx.android.synthetic.main.cabinet_fragment.*
 import timber.log.Timber
@@ -46,9 +47,11 @@ class CabinetFragment : Fragment() {
         }
     }
 
-    private fun onResponse(it: ArrayList<Any?>?) {
-        if (it != null) {
-            cabinet_frg__text.setText(it.toString())
+    private fun onResponse(it: ArrayList<Person?>?) {
+        it?.forEach {
+            if (it != null) {
+                println("Name: ${it.firstName} , Surname: ${it.lastName}")
+            }
         }
     }
 }
