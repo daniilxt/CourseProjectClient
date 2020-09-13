@@ -1,37 +1,36 @@
-package com.university.coursework.toolbar_fragments
+package com.university.coursework.main.support_fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.fintech.giflab.bus.EventBus
 import com.university.coursework.R
-import io.reactivex.disposables.Disposable
 import timber.log.Timber
 
 
-class GroupsFragment : Fragment() {
-    private var disposableGroups: Disposable? = null
+class ConnectionFragment : Fragment() {
+    private lateinit var CATEGORY: String
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = ConnectionFragment()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.groups_fragment, container, false)
+    ): View? = inflater.inflate(R.layout.connection_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Timber.i("ON VIEW CREATED")
-        disposableGroups = EventBus.get().subscribe { obj ->
-            when (obj) {
-//todo
-            }
+        val bundle = arguments
+        if (bundle != null) {
+            CATEGORY = bundle.getString("fragment").toString()
         }
-        initComponents()
     }
 
-    private fun initComponents() {
-        Timber.i("ON INIT COMPONENTS")
-    }
 
     override fun onResume() {
         super.onResume()

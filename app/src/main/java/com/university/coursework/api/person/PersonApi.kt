@@ -12,11 +12,11 @@ object PersonApi {
 
     fun getAllPerson(
         data: String,
-        action: (ArrayList<Person?>?) -> Unit
+        action: (ArrayList<Person>?) -> Unit
     ) {
         service.getAllPersons("Bearer $data")
             .enqueue(
-                CallbackImpl<ArrayList<Person?>>(
+                CallbackImpl<ArrayList<Person>>(
                     tag
                 ) { answer, e ->
                     action(answer)

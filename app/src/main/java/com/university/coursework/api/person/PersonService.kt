@@ -8,5 +8,5 @@ import retrofit2.http.*
 interface PersonService {
 
     @GET("person/all")
-    fun getAllPersons(@Header("Authorization") token: String): Call<ArrayList<Person?>>
+    fun getAllPersons(@Header("Authorization") token: String): Call<ArrayList<Person>>
 }

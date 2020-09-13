@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.fintech.giflab.bus.EventBus
 import com.github.razir.progressbutton.attachTextChangeAnimator
 import com.github.razir.progressbutton.bindProgressButton
 import com.google.android.material.tabs.TabLayout
@@ -18,7 +19,11 @@ import com.university.coursework.adapters.ViewPagerAdapter
 import com.university.coursework.api.person.PersonApi
 import com.university.coursework.api.validate_user.ValidateUserApi
 import com.university.coursework.api.validate_user.ValidateUserService
+import com.university.coursework.bus.Event
+import com.university.coursework.helper.CiceroneHelper
 import com.university.coursework.models.dto.Person
+import com.university.coursework.screens.InfoScreen
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.auth_fragment.*
 import kotlinx.android.synthetic.main.cabinet_fragment.*
 import timber.log.Timber
@@ -27,6 +32,8 @@ class CabinetFragment : Fragment() {
 
     private lateinit var imm: InputMethodManager
     private var TOKEN = ""
+    private var disposableCabinet: Disposable? = null
+
 
     companion object {
         fun newInstance() = CabinetFragment()
@@ -45,6 +52,13 @@ class CabinetFragment : Fragment() {
             TOKEN = bundle.getString("token").toString()
         }
         initTabs()
+        disposableCabinet = EventBus.get().subscribe { obj ->
+            when (obj) {
+                Event.SHOW_INFO -> {
+                    CiceroneHelper.router().newChain(InfoScreen())
+                }
+            }
+        }
 /*        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
 
         PersonApi.getAllPerson(TOKEN) {
@@ -56,7 +70,9 @@ class CabinetFragment : Fragment() {
 
     private fun initTabs() {
         val viewPager: ViewPager2 = requireActivity().findViewById(R.id.main_activity__view_pager)
-        val adapter = ViewPagerAdapter(requireActivity().supportFragmentManager, lifecycle)
+        var bundle = Bundle()
+        bundle.putString("token", TOKEN)
+        val adapter = ViewPagerAdapter(childFragmentManager, lifecycle,bundle)
         viewPager.adapter = adapter
 
         val tabs: TabLayout = requireActivity().findViewById(R.id.main_activity__tabs)

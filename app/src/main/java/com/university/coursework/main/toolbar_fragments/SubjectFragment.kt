@@ -1,4 +1,4 @@
-package com.university.coursework.toolbar_fragments
+package com.university.coursework.main.toolbar_fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -27,5 +27,9 @@ class SubjectFragment : Fragment() {
                 //todo
             }
         }
+    }
+    override fun onResume() {
+        super.onResume()
+        Timber.i("ON RESUME")
     }
 }

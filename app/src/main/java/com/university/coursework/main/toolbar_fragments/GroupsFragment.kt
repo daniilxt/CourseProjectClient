@@ -1,4 +1,4 @@
-package com.university.coursework.toolbar_fragments
+package com.university.coursework.main.toolbar_fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,21 +11,30 @@ import io.reactivex.disposables.Disposable
 import timber.log.Timber
 
 
-class PeopleFragment : Fragment() {
-    private var disposablePeople: Disposable? = null
-
+class GroupsFragment : Fragment() {
+    private var disposableGroups: Disposable? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.people_fragment, container, false)
+    ): View? = inflater.inflate(R.layout.groups_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Timber.i("ON VIEW CREATED")
-        disposablePeople = EventBus.get().subscribe { obj ->
+        disposableGroups = EventBus.get().subscribe { obj ->
             when (obj) {
-                //todo
+//todo
             }
         }
+        initComponents()
+    }
+
+    private fun initComponents() {
+        Timber.i("ON INIT COMPONENTS")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Timber.i("ON RESUME")
     }
 }

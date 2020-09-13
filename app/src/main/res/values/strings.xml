@@ -4,4 +4,8 @@
     <string name="auth_frg__login_password_hint">password</string>
     <string name="auth_frg__login_input">Поле для ввода логина пользователя</string>
     <string name="auth_frg__btn_sign_in">enter</string>
+
+    <string name="connection_frg__try_again">повторить</string>
+    <string name="stub_empty_frg__no_data">Раздел временно недоступен</string>
+
 </resources>
