@@ -7,10 +7,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 
-
-//const val BASE_URL = "https://letbilet.ru/"
 //const val BASE_URL = "http://59e110df23f7.ngrok.io/"
-const val BASE_URL = "http://0c12c1a74d79.ngrok.io"
+const val BASE_URL = "http://6baf55f80c5c.ngrok.io"
 
 object RetrofitClient {
 
@@ -20,7 +18,6 @@ object RetrofitClient {
             if (isNeedLog) {
                 Timber.tag("MY_HTTP").d(message)
             }
-
         }
     }).setLevel(HttpLoggingInterceptor.Level.BODY)
 

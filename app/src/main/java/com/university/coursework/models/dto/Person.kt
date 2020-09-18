@@ -1,6 +1,7 @@
 package com.university.coursework.models.dto
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Person(
     @SerializedName("id") val id: Int,
@@ -8,4 +9,4 @@ data class Person(
     @SerializedName("lastName") val lastName: String,
     @SerializedName("middleName") val middleName: String,
     @SerializedName("group") val group: Group
-)
+):Serializable

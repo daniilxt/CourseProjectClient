@@ -8,10 +8,14 @@ import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class App : Application(), CiceroneHandler {
     private lateinit var cicerone: Cicerone<Router>
+    public var SUBJECTS_ARRAY:ArrayList<String> = ArrayList(Arrays.asList(""));
+    public var TEACHERS_ARRAY:ArrayList<String> = ArrayList(Arrays.asList(""));
 
     companion object {
         @JvmStatic

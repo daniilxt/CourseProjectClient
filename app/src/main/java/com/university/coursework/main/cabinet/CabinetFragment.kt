@@ -4,28 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.fintech.giflab.bus.EventBus
-import com.github.razir.progressbutton.attachTextChangeAnimator
-import com.github.razir.progressbutton.bindProgressButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.university.coursework.R
 import com.university.coursework.adapters.ViewPagerAdapter
-import com.university.coursework.api.person.PersonApi
-import com.university.coursework.api.validate_user.ValidateUserApi
-import com.university.coursework.api.validate_user.ValidateUserService
 import com.university.coursework.bus.Event
-import com.university.coursework.helper.CiceroneHelper
-import com.university.coursework.models.dto.Person
-import com.university.coursework.screens.InfoScreen
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.auth_fragment.*
-import kotlinx.android.synthetic.main.cabinet_fragment.*
 import timber.log.Timber
 
 class CabinetFragment : Fragment() {
@@ -55,17 +43,10 @@ class CabinetFragment : Fragment() {
         disposableCabinet = EventBus.get().subscribe { obj ->
             when (obj) {
                 Event.SHOW_INFO -> {
-                    CiceroneHelper.router().newChain(InfoScreen())
+                    //CiceroneHelper.router().newChain(InfoScreen())
                 }
             }
         }
-/*        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
-
-        PersonApi.getAllPerson(TOKEN) {
-            onResponse(it)
-        }*/
-
-
     }
 
     private fun initTabs() {
@@ -82,11 +63,3 @@ class CabinetFragment : Fragment() {
         }.attach()
     }
 }
-/*
-    private fun onResponse(it: ArrayList<Person?>?) {
-        it?.forEach {
-            if (it != null) {
-                println("Name: ${it.firstName} , Surname: ${it.lastName}")
-            }
-        }
-    }*/

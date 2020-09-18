@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/people_info_frg__background"
+        android:layout_width="wrap_content"
+        android:scaleType="centerCrop"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/profile_info_frg_bg"/>
+
+    <ImageView
+        android:id="@+id/people_info_frg__avatar"
+        android:layout_width="@dimen/spacing_pre_gigantic_115"
+        android:layout_height="@dimen/spacing_pre_gigantic_115"
+        app:layout_constraintBottom_toTopOf="@+id/people_info_frg__nick_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/people_info_frg__background"
+        app:layout_constraintTop_toBottomOf="@+id/people_info_frg__background"
+        app:srcCompat="@drawable/avatar_default" />
+
+    <ImageButton
+        android:id="@+id/people_info_frg__btn_edit"
+        android:layout_width="@dimen/spacing_huge_40"
+        android:layout_height="@dimen/spacing_huge_40"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/btn_round_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/people_info_frg__avatar"
+        app:layout_constraintStart_toEndOf="@+id/people_info_frg__avatar"
+        app:layout_constraintTop_toTopOf="@+id/people_info_frg__avatar"
+        app:srcCompat="@drawable/ic_edit" />
+
+    <ImageButton
+        android:id="@+id/people_info_frg__btn_save"
+        android:layout_width="@dimen/spacing_huge_40"
+        android:layout_height="@dimen/spacing_huge_40"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/btn_round_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/people_info_frg__avatar"
+        app:layout_constraintEnd_toStartOf="@+id/people_info_frg__avatar"
+        app:layout_constraintTop_toTopOf="@+id/people_info_frg__avatar"
+        app:srcCompat="@drawable/ic_save" />
+
+    <TextView
+        android:id="@+id/people_info_frg__nick_name"
+        style="@style/InfoPeopleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/people_info_frg__status"
+        app:layout_constraintEnd_toEndOf="@+id/people_info_frg__avatar"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/people_info_frg__avatar"
+        app:layout_constraintTop_toBottomOf="@+id/people_info_frg__avatar"
+        tools:text="Firsov Daniil Anatolievich" />
+
+    <TextView
+        android:id="@+id/people_info_frg__status"
+        style="@style/InfoPeopleRank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="STUDENTS"
+        app:layout_constraintBottom_toTopOf="@+id/people_info_frg__background"
+        app:layout_constraintEnd_toEndOf="@+id/people_info_frg__nick_name"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/people_info_frg__nick_name"
+        app:layout_constraintTop_toBottomOf="@+id/people_info_frg__nick_name" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/people_info_frg__constraint_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/people_info_frg__background">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:text="Выберите оценку"
+            app:layout_constraintBottom_toTopOf="@+id/people_info_frg__list_marks"
+            app:layout_constraintEnd_toEndOf="@+id/people_info_frg__list_marks"
+            app:layout_constraintStart_toStartOf="@+id/people_info_frg__list_marks" />
+
+        <Spinner
+            android:id="@+id/people_info_frg__list_marks"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/big_icon_60"
+            android:layout_marginEnd="@dimen/big_icon_60"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/profile_info_frg__spinner_style"
+            android:entries="@array/marks"
+            android:padding="@dimen/spacing_half_mid_10"
+            android:popupBackground="@drawable/rounded_spinner"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/textView3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:text="Выберите предмет"
+            app:layout_constraintBottom_toTopOf="@+id/people_info_frg__list_subjects"
+            app:layout_constraintEnd_toEndOf="@+id/people_info_frg__list_subjects"
+            app:layout_constraintStart_toStartOf="@+id/people_info_frg__list_subjects" />
+
+        <Spinner
+            android:id="@+id/people_info_frg__list_subjects"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/big_icon_60"
+            android:layout_marginEnd="@dimen/big_icon_60"
+            android:background="@drawable/profile_info_frg__spinner_style"
+            android:entries="@array/marks"
+            android:padding="@dimen/spacing_half_mid_10"
+            android:popupBackground="@drawable/rounded_spinner"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Выберите учителя"
+            app:layout_constraintEnd_toEndOf="@+id/people_info_frg__list_teachers"
+            app:layout_constraintStart_toStartOf="@+id/people_info_frg__list_teachers"
+            app:layout_constraintTop_toBottomOf="@+id/people_info_frg__list_subjects" />
+
+        <Spinner
+            android:id="@+id/people_info_frg__list_teachers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/big_icon_60"
+            android:layout_marginEnd="@dimen/big_icon_60"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/profile_info_frg__spinner_style"
+            android:entries="@array/marks"
+            android:padding="@dimen/spacing_half_mid_10"
+            android:popupBackground="@drawable/rounded_spinner"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="visible"
+        android:id="@+id/people_info_frg__recycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/people_info_frg__background"
+        tools:listitem="@layout/mark_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

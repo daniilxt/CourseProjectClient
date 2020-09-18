@@ -8,4 +8,11 @@
     <string name="connection_frg__try_again">повторить</string>
     <string name="stub_empty_frg__no_data">Раздел временно недоступен</string>
 
+    <string-array name="marks">
+        <item >-</item>
+        <item >5</item>
+        <item >4</item>
+        <item >3</item>
+        <item >2</item>
+    </string-array>
 </resources>

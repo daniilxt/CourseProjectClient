@@ -22,4 +22,17 @@ object PersonApi {
                     action(answer)
                 })
     }
+
+    fun getAllTeachers(
+        data: String,
+        action: (List<Person>?) -> Unit
+    ) {
+        service.getAllTeachers("Bearer $data")
+            .enqueue(
+                CallbackImpl<List<Person>>(
+                    tag
+                ) { answer, e ->
+                    action(answer)
+                })
+    }
 }

@@ -9,4 +9,7 @@ interface PersonService {
 
     @GET("person/all")
     fun getAllPersons(@Header("Authorization") token: String): Call<ArrayList<Person>>
+
+    @GET("person/all/teachers")
+    fun getAllTeachers(@Header("Authorization") token: String): Call<List<Person>>
 }
