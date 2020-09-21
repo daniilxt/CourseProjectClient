@@ -1,21 +1,26 @@
 package com.university.coursework.app
 
 import android.app.Application
+import android.app.Person
 import com.university.coursework.BuildConfig
 import com.university.coursework.helper.CiceroneHandler
+import com.university.coursework.models.dto.Subject
 import com.university.coursework.timber.ReleaseTree
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
+import java.security.acl.Group
 import java.util.*
 import kotlin.collections.ArrayList
 
 
 class App : Application(), CiceroneHandler {
     private lateinit var cicerone: Cicerone<Router>
-    public var SUBJECTS_ARRAY:ArrayList<String> = ArrayList(Arrays.asList(""));
-    public var TEACHERS_ARRAY:ArrayList<String> = ArrayList(Arrays.asList(""));
+    var SUBJECTS: ArrayList<Subject> = ArrayList()
+    var TEACHERS_GROUP: com.university.coursework.models.dto.Group? = null
+    var TEACHERS: ArrayList<com.university.coursework.models.dto.Person> = ArrayList()
+
 
     companion object {
         @JvmStatic

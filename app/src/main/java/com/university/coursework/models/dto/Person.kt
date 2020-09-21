@@ -8,5 +8,6 @@ data class Person(
     @SerializedName("firstName") val firstName: String,
     @SerializedName("lastName") val lastName: String,
     @SerializedName("middleName") val middleName: String,
-    @SerializedName("group") val group: Group
+    @SerializedName("group") val group: Group,
+    @SerializedName("type") val type: Char
 ):Serializable

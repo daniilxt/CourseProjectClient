@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.university.coursework.R
@@ -15,19 +14,33 @@ import com.university.coursework.adapters.MarksRecyclerAdapter
 import com.university.coursework.api.marks.MarksApi
 import com.university.coursework.app.App
 import com.university.coursework.helper.SpinnerTag
-import com.university.coursework.models.dto.Person
+import com.university.coursework.models.dto.*
 import kotlinx.android.synthetic.main.people_info_fragment.*
 import timber.log.Timber
+import java.util.stream.Collectors
 
 
 class PeopleInfoFragment : Fragment() {
+    private var userMarks: ArrayList<Mark> = ArrayList()
+    private lateinit var person: Person
     lateinit var itemAdapter: MarksRecyclerAdapter
     private var TOKEN = ""
+    private var postData = PostMark()
 
-    private inner class PostMark() {
+    private inner class PostMark {
         var teacher: String = ""
+            set(value) {
+                field = value
+            }
         var mark: String = ""
+            set(value) {
+                field = value
+            }
         var subject: String = ""
+            set(value) {
+                field = value
+            }
+
         fun clearFields() {
             teacher = ""
             mark = ""
@@ -39,6 +52,10 @@ class PeopleInfoFragment : Fragment() {
                 return true
             }
             return false
+        }
+
+        override fun toString(): String {
+            return "PostMark(teacher='$teacher', mark='$mark', subject='$subject')"
         }
     }
 
@@ -59,7 +76,7 @@ class PeopleInfoFragment : Fragment() {
         if (bundle != null) {
             //todo
             TOKEN = bundle.getString("token").toString()
-            val person: Person = bundle.getSerializable("item") as Person
+            person = bundle.getSerializable("item") as Person
             people_info_frg__nick_name.text =
                 "${person.lastName} ${person.firstName} ${person.middleName}"
             people_info_frg__status.text = person.group.name
@@ -76,22 +93,75 @@ class PeopleInfoFragment : Fragment() {
         }
         people_info_frg__btn_save.setOnClickListener {
             //itemAdapter.notifyDataSetChanged()
-            createList()
-            people_info_frg__recycler.visibility = View.VISIBLE
-            people_info_frg__constraint_container.visibility = View.GONE
-            PostMark().clearFields()
+            Timber.i("CLICKED DDD")
+            Timber.i("${PostMark()} DDD")
+            if (postData.allFilled()) {
+                Timber.i("CLICKED DDD2")
+
+                val secondGroup = App.instance.TEACHERS_GROUP
+
+                val teacher = secondGroup?.let { it1 ->
+                    Person(
+                        7,
+                        "Elena",
+                        "Selivanova",
+                        "Olegovna",
+                        it1,
+                        'T'
+                    )
+                }
+/*
+                teacher?.let { it1 ->
+                    Mark(null, person, Subject(10, "OOP"),
+                        it1, postData.mark)
+                }?.let { it2 ->
+                    MarksApi.setMark(
+                        TOKEN,
+                        it2
+                    ) {
+                        createList()
+                    }
+                }*/
+
+                val mapTeachers = mutableMapOf<Int, Person>()
+                teacher?.let { it1 -> mapTeachers.put(1, it1) }
+                var mark =
+                    userMarks.find { item ->
+                        postData.teacher == "${item.teacher.lastName} ${item.teacher.firstName} ${item.teacher.middleName}"
+                    }
+                if (mark == null) {
+                    mark = teacher?.let { it1 -> Mark(null, person, Subject(10, "OOP"), it1, "3") }
+                }
+                mark?.let { it1 ->
+                    MarksApi.setMark(TOKEN, it1) {
+                        createList()
+                    }
+                }
+
+                // createList()
+                people_info_frg__recycler.visibility = View.VISIBLE
+                people_info_frg__constraint_container.visibility = View.GONE
+                PostMark().clearFields()
+            }
         }
     }
 
     private fun initSpinners() {
         val spinner: Spinner = requireActivity().findViewById(R.id.people_info_frg__list_teachers)
         val spinner2: Spinner = requireActivity().findViewById(R.id.people_info_frg__list_subjects)
-        val subjects = App.instance.SUBJECTS_ARRAY.apply { add(0, "-") }
-        val teachers = App.instance.TEACHERS_ARRAY.apply { add(0, "-") }
+        val spinnerMark: Spinner = requireActivity().findViewById(R.id.people_info_frg__list_marks)
+        val teachers = App.instance.TEACHERS.stream().map { item ->
+            "${item.lastName} ${item.firstName} ${item.middleName}"
+        }.sorted().collect(Collectors.toList()).apply { add(0, "-") }
+
+        val subjects = App.instance.SUBJECTS.stream().map { item -> item.name }.sorted()
+            .collect(Collectors.toList()).apply { add(0, "-") }
+
+        val marks: List<String> = listOf("-", "5", "4", "3", "2", "1")
 
         spinnerList(spinner, teachers, SpinnerTag.TEACHER)
         spinnerList(spinner2, subjects, SpinnerTag.SUBJECT)
-
+        spinnerList(spinnerMark, marks, SpinnerTag.MARK)
     }
 
     private fun spinnerList(spinner: Spinner, list: List<String>, tag: SpinnerTag) {
@@ -123,13 +193,15 @@ class PeopleInfoFragment : Fragment() {
     private fun setTextFromSpinner(str: String, tag: SpinnerTag) {
         when (tag) {
             SpinnerTag.TEACHER -> {
-                PostMark().teacher = str
+                Timber.i(str)
+                postData.teacher = str
             }
             SpinnerTag.SUBJECT -> {
-                PostMark().subject = str
+                postData.subject = str
+
             }
             SpinnerTag.MARK -> {
-                PostMark().mark = str
+                postData.mark = str
             }
             else -> {
 
@@ -141,6 +213,7 @@ class PeopleInfoFragment : Fragment() {
         MarksApi.getPersonMarks(TOKEN, 6) {
             Timber.i("????? $it")
             if (it != null) {
+                userMarks = it
                 itemAdapter = MarksRecyclerAdapter(it)
                 people_info_frg__recycler.layoutManager = LinearLayoutManager(requireContext())
                 people_info_frg__recycler.adapter = itemAdapter
@@ -154,5 +227,19 @@ class PeopleInfoFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Timber.i("ON RESUME")
+    }
+
+    private fun checkInMarks() {
+        userMarks.forEach { item ->
+            val str =
+                "${item.teacher.lastName} ${item.teacher.firstName} ${item.teacher.middleName}"
+            if (postData.teacher == str) {
+                createMark(item)
+            }
+        }
+    }
+
+    private fun createMark(item: Mark) {
+
     }
 }

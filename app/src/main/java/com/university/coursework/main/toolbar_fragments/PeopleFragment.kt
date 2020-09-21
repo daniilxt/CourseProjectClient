@@ -59,17 +59,14 @@ class PeopleFragment : Fragment(), OnItemClickListener {
     private fun createList() {
         SubjectApi.getAllSubjects(TOKEN) {
             if (it != null) {
-                App.instance.SUBJECTS_ARRAY = (
-                        it.stream().map { item -> item.name }
-                            ?.collect(Collectors.toList()) as ArrayList<String>)
+                App.instance.SUBJECTS = it as ArrayList<Subject>
             }
         }
 
-        PersonApi.getAllTeachers(TOKEN) {
+        PersonApi.getAllTeachers(TOKEN) { it ->
             if (it != null) {
-                App.instance.TEACHERS_ARRAY = (it.stream().map { item ->
-                    "${item.lastName} ${item.firstName} ${item.middleName}"
-                }.collect(Collectors.toList()) as ArrayList<String>)
+                App.instance.TEACHERS_GROUP = it[0].group
+                App.instance.TEACHERS = it as ArrayList<Person>
             }
         }
 

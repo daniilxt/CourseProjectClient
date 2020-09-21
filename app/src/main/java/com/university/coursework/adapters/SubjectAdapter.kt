@@ -4,17 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.university.coursework.R
-import com.university.coursework.models.dto.Mark
 import com.university.coursework.models.dto.Person
-import kotlinx.android.synthetic.main.mark_layout.view.*
+import com.university.coursework.models.dto.Subject
+import kotlinx.android.synthetic.main.item_layout.view.*
 
-class MarksRecyclerAdapter(
-    private val titles: ArrayList<Mark>
+class SubjectAdapter(
+    private val titles: List<Subject>
 ) :
     RecyclerView.Adapter<DataViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
         return DataViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.mark_layout, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
         )
     }
 
@@ -25,12 +25,7 @@ class MarksRecyclerAdapter(
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         val item = titles[position]
 
-        holder.itemView.mark__card_title.text =item.subject.name
-        holder.itemView.mark__card_description.text = fullName(item.teacher)
-        holder.itemView.mark__card_image.text = item.value
-    }
-
-    private fun fullName(item:Person): CharSequence? {
-        return "${item.lastName} ${item.firstName} ${item.middleName}"
+        holder.itemView.item__card_title.text = item.name
+        holder.itemView.item__card_image.setImageResource(R.drawable.auth_frg__user_icon)
     }
 }

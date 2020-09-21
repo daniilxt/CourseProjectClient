@@ -1,7 +1,6 @@
 package com.university.coursework.api.marks
 
-import com.university.coursework.models.dto.Marks
-import com.university.coursework.models.dto.Person
+import com.university.coursework.models.dto.Mark
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -12,5 +11,11 @@ interface MarksService {
     fun getPersonMarks(
         @Header("Authorization") token: String,
         @Path("id") id: Int
-    ): Call<ArrayList<Marks>>
+    ): Call<ArrayList<Mark>>
+
+    @POST("marks/add")
+    fun setMark(
+        @Header("Authorization") token: String,
+        @Body data: Mark
+    ): Call<Mark>
 }

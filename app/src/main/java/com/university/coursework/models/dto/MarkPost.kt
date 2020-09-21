@@ -2,8 +2,7 @@ package com.university.coursework.models.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class Marks(
-    @SerializedName("id") val id: Int,
+data class MarkPost(
     @SerializedName("student") val student: Person,
     @SerializedName("subject") val subject: Subject,
     @SerializedName("teacher") val teacher: Person,
