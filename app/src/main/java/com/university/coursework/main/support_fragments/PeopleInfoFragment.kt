@@ -28,6 +28,8 @@ class PeopleInfoFragment : Fragment() {
     private var postData = PostMark()
 
     private inner class PostMark {
+        var teacherData: Person? = null
+        var subjectData: Subject? = null
         var teacher: String = ""
             set(value) {
                 field = value
@@ -42,13 +44,15 @@ class PeopleInfoFragment : Fragment() {
             }
 
         fun clearFields() {
+            teacherData = null
+            subjectData = null
             teacher = ""
             mark = ""
             subject = ""
         }
 
         fun allFilled(): Boolean {
-            if (teacher.isNotEmpty() && subject.isNotEmpty() && mark.isNotEmpty()) {
+            if (teacherData != null && subjectData != null && mark.isNotEmpty()) {
                 return true
             }
             return false
@@ -92,51 +96,27 @@ class PeopleInfoFragment : Fragment() {
             people_info_frg__constraint_container.visibility = View.VISIBLE
         }
         people_info_frg__btn_save.setOnClickListener {
-            //itemAdapter.notifyDataSetChanged()
-            Timber.i("CLICKED DDD")
-            Timber.i("${PostMark()} DDD")
             if (postData.allFilled()) {
-                Timber.i("CLICKED DDD2")
-
-                val secondGroup = App.instance.TEACHERS_GROUP
-
-                val teacher = secondGroup?.let { it1 ->
-                    Person(
-                        7,
-                        "Elena",
-                        "Selivanova",
-                        "Olegovna",
-                        it1,
-                        'T'
-                    )
-                }
-/*
-                teacher?.let { it1 ->
-                    Mark(null, person, Subject(10, "OOP"),
-                        it1, postData.mark)
-                }?.let { it2 ->
-                    MarksApi.setMark(
-                        TOKEN,
-                        it2
-                    ) {
-                        createList()
-                    }
-                }*/
-
-                val mapTeachers = mutableMapOf<Int, Person>()
-                teacher?.let { it1 -> mapTeachers.put(1, it1) }
+                clearAllSpinners()
                 var mark =
                     userMarks.find { item ->
-                        postData.teacher == "${item.teacher.lastName} ${item.teacher.firstName} ${item.teacher.middleName}"
+                        postData.teacherData == item.teacher && postData.subjectData == item.subject
                     }
+                mark?.value = postData.mark
                 if (mark == null) {
-                    mark = teacher?.let { it1 -> Mark(null, person, Subject(10, "OOP"), it1, "3") }
+                    mark = Mark(
+                        null,
+                        person,
+                        postData.subjectData!!,
+                        postData.teacherData!!,
+                        postData.mark
+                    )
                 }
-                mark?.let { it1 ->
-                    MarksApi.setMark(TOKEN, it1) {
-                        createList()
-                    }
+                Timber.i("MARK IS: $mark")
+                MarksApi.setMark(TOKEN, mark) {
+                    createList()
                 }
+                postData.clearFields()
 
                 // createList()
                 people_info_frg__recycler.visibility = View.VISIBLE
@@ -144,6 +124,12 @@ class PeopleInfoFragment : Fragment() {
                 PostMark().clearFields()
             }
         }
+    }
+
+    private fun clearAllSpinners() {
+        people_info_frg__list_marks.setSelection(0)
+        people_info_frg__list_subjects.setSelection(0)
+        people_info_frg__list_teachers.setSelection(0)
     }
 
     private fun initSpinners() {
@@ -194,14 +180,25 @@ class PeopleInfoFragment : Fragment() {
         when (tag) {
             SpinnerTag.TEACHER -> {
                 Timber.i(str)
-                postData.teacher = str
-            }
-            SpinnerTag.SUBJECT -> {
-                postData.subject = str
+                postData.teacherData = null
+                postData.teacherData = App.instance.TEACHERS.find { item ->
+                    str == "${item.lastName} ${item.firstName} ${item.middleName}"
+                }
+                Timber.i("MARK $str  ${postData.teacherData}")
 
             }
+            SpinnerTag.SUBJECT -> {
+                postData.subjectData = null
+                postData.subjectData = App.instance.SUBJECTS.find { item ->
+                    str == item.name
+                }
+                Timber.i("MARK $str  ${postData.subjectData}")
+            }
             SpinnerTag.MARK -> {
+                postData.mark = ""
                 postData.mark = str
+                Timber.i("MARK $str  ${postData.mark}")
+
             }
             else -> {
 
@@ -227,16 +224,6 @@ class PeopleInfoFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Timber.i("ON RESUME")
-    }
-
-    private fun checkInMarks() {
-        userMarks.forEach { item ->
-            val str =
-                "${item.teacher.lastName} ${item.teacher.firstName} ${item.teacher.middleName}"
-            if (postData.teacher == str) {
-                createMark(item)
-            }
-        }
     }
 
     private fun createMark(item: Mark) {

@@ -21,7 +21,6 @@ class App : Application(), CiceroneHandler {
     var TEACHERS_GROUP: com.university.coursework.models.dto.Group? = null
     var TEACHERS: ArrayList<com.university.coursework.models.dto.Person> = ArrayList()
 
-
     companion object {
         @JvmStatic
         lateinit var instance: App

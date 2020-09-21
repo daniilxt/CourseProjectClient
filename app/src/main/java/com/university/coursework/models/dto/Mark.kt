@@ -7,5 +7,5 @@ data class Mark(
     @SerializedName("student") val student: Person,
     @SerializedName("subject") val subject: Subject,
     @SerializedName("teacher") val teacher: Person,
-    @SerializedName("value") val value: String
+    @SerializedName("value") var value: String
 )
