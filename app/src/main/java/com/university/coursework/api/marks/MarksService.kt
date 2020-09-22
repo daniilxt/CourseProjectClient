@@ -18,4 +18,10 @@ interface MarksService {
         @Header("Authorization") token: String,
         @Body data: Mark
     ): Call<Mark>
+
+    @DELETE("marks/delete/{id}")
+    fun deleteMark(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ): Call<Mark>
 }

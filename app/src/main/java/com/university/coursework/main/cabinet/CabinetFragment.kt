@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.fintech.giflab.bus.EventBus
+import com.university.coursework.bus.EventBus
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.university.coursework.R

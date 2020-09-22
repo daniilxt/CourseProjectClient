@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.fintech.giflab.bus.EventBus
+import com.university.coursework.bus.EventBus
 import com.university.coursework.R
 import com.university.coursework.adapters.OnItemClickListener
 import com.university.coursework.adapters.RecyclerAdapter
@@ -22,9 +22,6 @@ import com.university.coursework.screens.InfoScreen
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.people_fragment.*
 import timber.log.Timber
-import java.util.*
-import java.util.stream.Collectors
-import java.util.stream.Stream
 import kotlin.collections.ArrayList
 
 

@@ -1,4 +1,4 @@
-package com.fintech.giflab.bus
+package com.university.coursework.bus
 
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.fintech.giflab.bus.EventBus
+import com.university.coursework.bus.EventBus
 import com.university.coursework.R
 import io.reactivex.disposables.Disposable
 import timber.log.Timber

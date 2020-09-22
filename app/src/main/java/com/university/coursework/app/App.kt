@@ -20,6 +20,7 @@ class App : Application(), CiceroneHandler {
     var SUBJECTS: ArrayList<Subject> = ArrayList()
     var TEACHERS_GROUP: com.university.coursework.models.dto.Group? = null
     var TEACHERS: ArrayList<com.university.coursework.models.dto.Person> = ArrayList()
+    var TOKEN = ""
 
     companion object {
         @JvmStatic

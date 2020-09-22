@@ -8,14 +8,21 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.university.coursework.R
 import com.university.coursework.adapters.MarksRecyclerAdapter
+import com.university.coursework.adapters.SwipeToDeleteCallback
 import com.university.coursework.api.marks.MarksApi
 import com.university.coursework.app.App
+import com.university.coursework.bus.Event
+import com.university.coursework.bus.EventBus
 import com.university.coursework.helper.SpinnerTag
 import com.university.coursework.models.dto.*
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.people_info_fragment.*
+import kotlinx.android.synthetic.main.people_info_fragment.view.*
 import timber.log.Timber
 import java.util.stream.Collectors
 
@@ -26,6 +33,8 @@ class PeopleInfoFragment : Fragment() {
     lateinit var itemAdapter: MarksRecyclerAdapter
     private var TOKEN = ""
     private var postData = PostMark()
+    private var disposablePeopleInfo: Disposable? = null
+
 
     private inner class PostMark {
         var teacherData: Person? = null
@@ -80,10 +89,19 @@ class PeopleInfoFragment : Fragment() {
         if (bundle != null) {
             //todo
             TOKEN = bundle.getString("token").toString()
+            App.instance.TOKEN = TOKEN
             person = bundle.getSerializable("item") as Person
             people_info_frg__nick_name.text =
                 "${person.lastName} ${person.firstName} ${person.middleName}"
             people_info_frg__status.text = person.group.name
+        }
+
+        disposablePeopleInfo = EventBus.get().subscribe { obj ->
+            when (obj) {
+                Event.MARK_CREATE -> {
+                    createList()
+                }
+            }
         }
         createList()
         initSpinners()
@@ -118,7 +136,6 @@ class PeopleInfoFragment : Fragment() {
                 }
                 postData.clearFields()
 
-                // createList()
                 people_info_frg__recycler.visibility = View.VISIBLE
                 people_info_frg__constraint_container.visibility = View.GONE
                 PostMark().clearFields()
@@ -170,6 +187,7 @@ class PeopleInfoFragment : Fragment() {
                 setTextFromSpinner(parent.getItemAtPosition(position).toString(), tag)
             }
 
+
             override fun onNothingSelected(parent: AdapterView<*>) {
                 // Another interface callback
             }
@@ -180,7 +198,6 @@ class PeopleInfoFragment : Fragment() {
         when (tag) {
             SpinnerTag.TEACHER -> {
                 Timber.i(str)
-                postData.teacherData = null
                 postData.teacherData = App.instance.TEACHERS.find { item ->
                     str == "${item.lastName} ${item.firstName} ${item.middleName}"
                 }
@@ -188,17 +205,14 @@ class PeopleInfoFragment : Fragment() {
 
             }
             SpinnerTag.SUBJECT -> {
-                postData.subjectData = null
                 postData.subjectData = App.instance.SUBJECTS.find { item ->
                     str == item.name
                 }
                 Timber.i("MARK $str  ${postData.subjectData}")
             }
             SpinnerTag.MARK -> {
-                postData.mark = ""
                 postData.mark = str
                 Timber.i("MARK $str  ${postData.mark}")
-
             }
             else -> {
 
@@ -207,14 +221,25 @@ class PeopleInfoFragment : Fragment() {
     }
 
     private fun createList() {
-        MarksApi.getPersonMarks(TOKEN, 6) {
+        MarksApi.getPersonMarks(TOKEN, person.id) {
             Timber.i("????? $it")
             if (it != null) {
                 userMarks = it
                 itemAdapter = MarksRecyclerAdapter(it)
-                people_info_frg__recycler.layoutManager = LinearLayoutManager(requireContext())
-                people_info_frg__recycler.adapter = itemAdapter
+                requireView().people_info_frg__recycler.layoutManager =
+                    LinearLayoutManager(requireContext())
+                requireActivity().people_info_frg__recycler.adapter = itemAdapter
                 itemAdapter.notifyDataSetChanged()
+
+                val item =
+                    object : SwipeToDeleteCallback(requireContext(), 0, ItemTouchHelper.LEFT) {
+                        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                            itemAdapter.del(viewHolder.absoluteAdapterPosition)
+                        }
+                    }
+                val itemTouchHelper = ItemTouchHelper(item)
+                itemTouchHelper.attachToRecyclerView(people_info_frg__recycler)
+
             } else {
                 //CiceroneHelper.router().navigateTo(InfoScreen())
             }

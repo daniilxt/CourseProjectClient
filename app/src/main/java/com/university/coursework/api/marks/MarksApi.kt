@@ -38,4 +38,17 @@ object MarksApi {
                     action(answer)
                 })
     }
+
+    fun deleteMark(
+        data: String,
+        post: Int,
+        action: (Mark?) -> Unit
+    ) {
+        service.deleteMark("Bearer $data", post).enqueue(
+            CallbackImpl<Mark>(
+                tag
+            ) { answer, e ->
+                action(answer)
+            })
+    }
 }
