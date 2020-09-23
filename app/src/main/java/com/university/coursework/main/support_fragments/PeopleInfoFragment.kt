@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,8 +19,11 @@ import com.university.coursework.api.marks.MarksApi
 import com.university.coursework.app.App
 import com.university.coursework.bus.Event
 import com.university.coursework.bus.EventBus
+import com.university.coursework.helper.Role
 import com.university.coursework.helper.SpinnerTag
-import com.university.coursework.models.dto.*
+import com.university.coursework.models.dto.Mark
+import com.university.coursework.models.dto.Person
+import com.university.coursework.models.dto.Subject
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.people_info_fragment.*
 import kotlinx.android.synthetic.main.people_info_fragment.view.*
@@ -103,6 +107,10 @@ class PeopleInfoFragment : Fragment() {
                 }
             }
         }
+        Timber.i("ROLEEEE ${App.instance.CLIENT_ROLE}")
+        if (App.instance.CLIENT_ROLE == Role.ADMIN || App.instance.CLIENT_ROLE == Role.TEACHER) {
+            people_info_frg__btn_edit.visibility = View.VISIBLE
+        }
         createList()
         initSpinners()
         initButtons()
@@ -112,6 +120,7 @@ class PeopleInfoFragment : Fragment() {
         people_info_frg__btn_edit.setOnClickListener {
             people_info_frg__recycler.visibility = View.GONE
             people_info_frg__constraint_container.visibility = View.VISIBLE
+            people_info_frg__btn_save.visibility = View.VISIBLE
         }
         people_info_frg__btn_save.setOnClickListener {
             if (postData.allFilled()) {
@@ -130,7 +139,6 @@ class PeopleInfoFragment : Fragment() {
                         postData.mark
                     )
                 }
-                Timber.i("MARK IS: $mark")
                 MarksApi.setMark(TOKEN, mark) {
                     createList()
                 }
@@ -139,6 +147,9 @@ class PeopleInfoFragment : Fragment() {
                 people_info_frg__recycler.visibility = View.VISIBLE
                 people_info_frg__constraint_container.visibility = View.GONE
                 PostMark().clearFields()
+                people_info_frg__btn_save.visibility = View.INVISIBLE
+            } else {
+                Toast.makeText(requireContext(), "Заполните все поля", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -237,9 +248,10 @@ class PeopleInfoFragment : Fragment() {
                             itemAdapter.del(viewHolder.absoluteAdapterPosition)
                         }
                     }
-                val itemTouchHelper = ItemTouchHelper(item)
-                itemTouchHelper.attachToRecyclerView(people_info_frg__recycler)
-
+                if (App.instance.CLIENT_ROLE == Role.ADMIN || App.instance.CLIENT_ROLE == Role.TEACHER) {
+                    val itemTouchHelper = ItemTouchHelper(item)
+                    itemTouchHelper.attachToRecyclerView(people_info_frg__recycler)
+                }
             } else {
                 //CiceroneHelper.router().navigateTo(InfoScreen())
             }
@@ -249,9 +261,5 @@ class PeopleInfoFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Timber.i("ON RESUME")
-    }
-
-    private fun createMark(item: Mark) {
-
     }
 }

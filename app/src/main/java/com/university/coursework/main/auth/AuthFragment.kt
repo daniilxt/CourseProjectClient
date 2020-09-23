@@ -14,6 +14,7 @@ import com.github.razir.progressbutton.bindProgressButton
 import com.university.coursework.R
 import com.university.coursework.api.validate_user.ValidateUserApi
 import com.university.coursework.api.validate_user.ValidateUserService
+import com.university.coursework.app.App
 import com.university.coursework.helper.CiceroneHelper
 import com.university.coursework.screens.CabinetScreen
 import kotlinx.android.synthetic.main.auth_fragment.*
@@ -74,6 +75,7 @@ class AuthFragment : Fragment() {
     private fun onResponse(it: ValidateUserService.CheckUserDto?) {
         Timber.i("DATA IS ${it.toString()}")
         if (it != null) {
+            App.instance.setRole(auth_frg__login_input.text.toString())
             CiceroneHelper.router().navigateTo(CabinetScreen(it.token))
         } else {
             Toast.makeText(requireContext(), "Проверьте логин/пароль", Toast.LENGTH_SHORT).show()

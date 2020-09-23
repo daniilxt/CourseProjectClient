@@ -4,6 +4,7 @@ import android.app.Application
 import android.app.Person
 import com.university.coursework.BuildConfig
 import com.university.coursework.helper.CiceroneHandler
+import com.university.coursework.helper.Role
 import com.university.coursework.models.dto.Subject
 import com.university.coursework.timber.ReleaseTree
 import ru.terrakok.cicerone.Cicerone
@@ -21,6 +22,7 @@ class App : Application(), CiceroneHandler {
     var TEACHERS_GROUP: com.university.coursework.models.dto.Group? = null
     var TEACHERS: ArrayList<com.university.coursework.models.dto.Person> = ArrayList()
     var TOKEN = ""
+    var CLIENT_ROLE = Role.USER
 
     companion object {
         @JvmStatic
@@ -62,5 +64,19 @@ class App : Application(), CiceroneHandler {
 
     fun getRouter(): Router {
         return cicerone.router
+    }
+
+    fun setRole(name: String) {
+        CLIENT_ROLE = when (name) {
+            "admin" -> {
+                Role.ADMIN
+            }
+            "teacher" -> {
+                Role.TEACHER
+            }
+            else -> {
+                Role.USER
+            }
+        }
     }
 }
