@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#B2121212">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@android:color/white"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.8">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_half_mid_10">
+
+
+            <EditText
+                android:id="@+id/dlg_human__second_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_half_mid_10"
+                android:hint="Введите Фамилию"
+                android:inputType="textShortMessage"
+                android:lines="1"
+                android:maxLength="50"
+                android:padding="@dimen/spacing_half_mid_10"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/font_massive__16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/dlg_ward__name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_half_mid_10"
+                android:hint="Введите Имя"
+                android:inputType="textShortMessage"
+                android:lines="1"
+                android:maxLength="50"
+                android:padding="@dimen/spacing_half_mid_10"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/font_massive__16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dlg_human__second_name" />
+
+            <EditText
+                android:id="@+id/dlg_human__middle_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_half_mid_10"
+                android:hint="Введите Отчество"
+                android:inputType="textShortMessage"
+                android:lines="1"
+                android:maxLength="50"
+                android:padding="@dimen/spacing_half_mid_10"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dlg_ward__name" />
+
+            <TextView
+                android:id="@+id/dlg_human_frg__list_group_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_half_mid_10"
+                android:text="Выберите группу"
+                android:textSize="@dimen/font_massive__16"
+                app:layout_constraintEnd_toEndOf="@+id/dlg_human_frg__list_group"
+                app:layout_constraintStart_toStartOf="@+id/dlg_human_frg__list_group"
+                app:layout_constraintTop_toBottomOf="@id/dlg_human__middle_name" />
+
+            <Spinner
+                android:id="@+id/dlg_human_frg__list_group"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/big_icon_60"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="@dimen/big_icon_60"
+                android:background="@drawable/profile_info_frg__spinner_style"
+                android:padding="@dimen/spacing_half_mid_10"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dlg_human_frg__list_group_text" />
+
+            <TextView
+                android:id="@+id/dlg_human__ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_half_mid_10"
+                android:padding="@dimen/spacing_half_mid_10"
+                android:text="OK"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dlg_human_frg__list_group" />
+
+            <TextView
+                android:id="@+id/dlg_human__back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_half_mid_10"
+                android:padding="@dimen/spacing_half_mid_10"
+                android:text="НАЗАД"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dlg_human_frg__list_group" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

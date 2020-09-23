@@ -38,4 +38,5 @@
         <item name="android:textSize">@dimen/font_massive__16</item>
         <item name="android:paddingTop">@dimen/spacing_one_fourth_mid_5</item>
     </style>
+
 </resources>

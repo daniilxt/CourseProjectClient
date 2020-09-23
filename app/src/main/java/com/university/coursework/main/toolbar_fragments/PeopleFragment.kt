@@ -10,11 +10,12 @@ import com.university.coursework.R
 import com.university.coursework.adapters.OnItemClickListener
 import com.university.coursework.adapters.RecyclerAdapter
 import com.university.coursework.api.person.PersonApi
-import com.university.coursework.api.subject.SubjectApi
+import com.university.coursework.api.group.GroupApi
 import com.university.coursework.app.App
 import com.university.coursework.bus.EventBus
 import com.university.coursework.extensions.showChildFragment
 import com.university.coursework.helper.CiceroneHelper
+import com.university.coursework.helper.showCreateHumanDialog
 import com.university.coursework.models.dto.Person
 import com.university.coursework.models.dto.Subject
 import com.university.coursework.screens.InfoScreen
@@ -53,13 +54,15 @@ class PeopleFragment : Fragment(), OnItemClickListener {
     }
 
     private fun initButtons() {
-        people_frg__btn_add.setOnClickListener{
+        people_frg__btn_add.setOnClickListener {
+            showCreateHumanDialog {
 
+            }
         }
     }
 
     private fun createList() {
-        SubjectApi.getAllSubjects(TOKEN) {
+        GroupApi.getAllSubjects(TOKEN) {
             if (it != null) {
                 App.instance.SUBJECTS = it as ArrayList<Subject>
             }

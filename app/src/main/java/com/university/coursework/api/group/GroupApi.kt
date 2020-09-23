@@ -1,23 +1,22 @@
-package com.university.coursework.api.subject
+package com.university.coursework.api.group
 
 import com.university.coursework.api.CallbackImpl
 import com.university.coursework.api.RetrofitClient
-import com.university.coursework.api.group.GroupService
-import com.university.coursework.models.dto.Subject
+import com.university.coursework.models.dto.Group
 
 
-object SubjectApi {
+object GroupApi {
     private val tag = this::class.java.simpleName
 
     private val service = RetrofitClient.retrofit.create(GroupService::class.java)
 
-    fun getAllSubjects(
+    fun getAllGroups(
         data: String,
-        action: (List<Subject>?) -> Unit
+        action: (List<Group>?) -> Unit
     ) {
-        service.getAllSubjects("Bearer $data")
+        service.getAllGroups("Bearer $data")
             .enqueue(
-                CallbackImpl<List<Subject>>(
+                CallbackImpl<List<Group>>(
                     tag
                 ) { answer, e ->
                     action(answer)

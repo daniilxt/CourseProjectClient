@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.university.coursework.bus.EventBus
 import com.university.coursework.R
 import com.university.coursework.adapters.SubjectAdapter
-import com.university.coursework.api.subject.SubjectApi
+import com.university.coursework.api.group.GroupApi
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.subject_fragment.*
 import timber.log.Timber
@@ -42,7 +42,7 @@ class SubjectFragment : Fragment() {
 
     private fun createList() {
 
-        SubjectApi.getAllSubjects(TOKEN) {
+        GroupApi.getAllSubjects(TOKEN) {
             if (it != null) {
                 itemAdapter = SubjectAdapter(it)
                 subject_frg__recycler.layoutManager = LinearLayoutManager(requireContext())
