@@ -232,28 +232,30 @@ class PeopleInfoFragment : Fragment() {
     }
 
     private fun createList() {
-        MarksApi.getPersonMarks(TOKEN, person.id) {
-            Timber.i("????? $it")
-            if (it != null) {
-                userMarks = it
-                itemAdapter = MarksRecyclerAdapter(it)
-                requireView().people_info_frg__recycler.layoutManager =
-                    LinearLayoutManager(requireContext())
-                requireActivity().people_info_frg__recycler.adapter = itemAdapter
-                itemAdapter.notifyDataSetChanged()
+        person.id?.let {
+            MarksApi.getPersonMarks(TOKEN, it) {
+                Timber.i("????? $it")
+                if (it != null) {
+                    userMarks = it
+                    itemAdapter = MarksRecyclerAdapter(it)
+                    requireView().people_info_frg__recycler.layoutManager =
+                        LinearLayoutManager(requireContext())
+                    requireActivity().people_info_frg__recycler.adapter = itemAdapter
+                    itemAdapter.notifyDataSetChanged()
 
-                val item =
-                    object : SwipeToDeleteCallback(requireContext(), 0, ItemTouchHelper.LEFT) {
-                        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                            itemAdapter.del(viewHolder.absoluteAdapterPosition)
+                    val item =
+                        object : SwipeToDeleteCallback(requireContext(), 0, ItemTouchHelper.LEFT) {
+                            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                                itemAdapter.del(viewHolder.absoluteAdapterPosition)
+                            }
                         }
+                    if (App.instance.CLIENT_ROLE == Role.ADMIN || App.instance.CLIENT_ROLE == Role.TEACHER) {
+                        val itemTouchHelper = ItemTouchHelper(item)
+                        itemTouchHelper.attachToRecyclerView(people_info_frg__recycler)
                     }
-                if (App.instance.CLIENT_ROLE == Role.ADMIN || App.instance.CLIENT_ROLE == Role.TEACHER) {
-                    val itemTouchHelper = ItemTouchHelper(item)
-                    itemTouchHelper.attachToRecyclerView(people_info_frg__recycler)
+                } else {
+                    //CiceroneHelper.router().navigateTo(InfoScreen())
                 }
-            } else {
-                //CiceroneHelper.router().navigateTo(InfoScreen())
             }
         }
     }

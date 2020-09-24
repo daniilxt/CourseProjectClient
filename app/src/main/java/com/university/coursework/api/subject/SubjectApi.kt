@@ -9,7 +9,7 @@ import com.university.coursework.models.dto.Subject
 object SubjectApi {
     private val tag = this::class.java.simpleName
 
-    private val service = RetrofitClient.retrofit.create(GroupService::class.java)
+    private val service = RetrofitClient.retrofit.create(SubjectService::class.java)
 
     fun getAllSubjects(
         data: String,

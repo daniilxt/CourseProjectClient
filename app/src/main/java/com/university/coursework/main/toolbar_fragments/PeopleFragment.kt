@@ -11,6 +11,7 @@ import com.university.coursework.adapters.OnItemClickListener
 import com.university.coursework.adapters.RecyclerAdapter
 import com.university.coursework.api.person.PersonApi
 import com.university.coursework.api.group.GroupApi
+import com.university.coursework.api.subject.SubjectApi
 import com.university.coursework.app.App
 import com.university.coursework.bus.EventBus
 import com.university.coursework.extensions.showChildFragment
@@ -62,7 +63,7 @@ class PeopleFragment : Fragment(), OnItemClickListener {
     }
 
     private fun createList() {
-        GroupApi.getAllSubjects(TOKEN) {
+        SubjectApi.getAllSubjects(TOKEN) {
             if (it != null) {
                 App.instance.SUBJECTS = it as ArrayList<Subject>
             }

@@ -41,7 +41,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/dlg_ward__name"
+                android:id="@+id/dlg_human__name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/spacing_half_mid_10"
@@ -70,7 +70,7 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dlg_ward__name" />
+                app:layout_constraintTop_toBottomOf="@id/dlg_human__name" />
 
             <TextView
                 android:id="@+id/dlg_human_frg__list_group_text"
