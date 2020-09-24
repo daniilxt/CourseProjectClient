@@ -57,7 +57,9 @@ class PeopleFragment : Fragment(), OnItemClickListener {
     private fun initButtons() {
         people_frg__btn_add.setOnClickListener {
             showCreateHumanDialog {
-
+                PersonApi.createPerson(TOKEN, it) {
+                    createPersons()
+                }
             }
         }
     }
@@ -68,7 +70,10 @@ class PeopleFragment : Fragment(), OnItemClickListener {
                 App.instance.SUBJECTS = it as ArrayList<Subject>
             }
         }
+        createPersons()
+    }
 
+    private fun createPersons() {
         PersonApi.getAllTeachers(TOKEN) { it ->
             if (it != null) {
                 App.instance.TEACHERS_GROUP = it[0].group
