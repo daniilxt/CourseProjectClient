@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_half_mid_10"
-                android:text="Title"
+                android:text=""
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/spacing_mid_20" />
 
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_half_mid_10"
-                android:text="There is description about people"
+                tools:text="There is description about people"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/spacing_mid_20" />
 
