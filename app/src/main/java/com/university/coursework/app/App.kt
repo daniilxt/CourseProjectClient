@@ -22,6 +22,7 @@ class App : Application(), CiceroneHandler {
     var TEACHERS_GROUP: com.university.coursework.models.dto.Group? = null
     var TEACHERS: ArrayList<com.university.coursework.models.dto.Person> = ArrayList()
     var GROUPS: ArrayList<com.university.coursework.models.dto.Group> = ArrayList()
+    var PERSONS: ArrayList<com.university.coursework.models.dto.Person> = ArrayList()
     var TOKEN = ""
     var CLIENT_ROLE = Role.USER
     //bad

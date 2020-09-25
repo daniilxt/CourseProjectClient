@@ -12,9 +12,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/people_frg__wr_search"
         tools:itemCount="10"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_layout"/>
+        tools:listitem="@layout/item_layout" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/people_frg__container"
@@ -22,15 +22,64 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/people_frg__wr_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_tiny_4"
+        android:background="@drawable/people_frg__rounded"
+        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/spacing_big_30"
+        android:layout_marginEnd="@dimen/spacing_big_30"
+        android:layout_marginBottom="@dimen/spacing_half_mid_10"
+        android:paddingStart="@dimen/spacing_half_big_15"
+        android:paddingTop="@dimen/spacing_half_big_15"
+        android:paddingBottom="@dimen/spacing_half_big_15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/manual_frg__search"
+            android:layout_width="@dimen/spacing_mid_20"
+            android:layout_height="@dimen/spacing_mid_20"
+            android:layout_marginEnd="@dimen/spacing_half_big_15"
+            android:src="@drawable/people_frg__search" />
+
+        <EditText
+            android:id="@+id/people_frg__wr_search_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введите человека"
+            android:textColor="@android:color/black"
+            style="@style/Text.ManualInput"
+            android:inputType="textShortMessage"
+            android:maxLength="50" />
+
+    </LinearLayout>
+<!--    <EditText
+        android:id="@+id/people_frg__wr_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/spacing_tiny_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@android:color/transparent"
+        android:paddingStart="@dimen/spacing_tiny_4"
+        android:drawableStart="@drawable/people_frg__wr_search"
+        android:layout_marginStart="@dimen/spacing_big_30"
+        android:layout_marginEnd="@dimen/spacing_big_30"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />-->
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/people_frg__btn_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/add_btn"
         android:layout_margin="@dimen/slightly_large_icon_25"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/add_btn"
         app:backgroundTint="#0000ff"
         app:borderWidth="0dp"
         app:elevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

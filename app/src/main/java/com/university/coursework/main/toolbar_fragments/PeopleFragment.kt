@@ -1,6 +1,8 @@
 package com.university.coursework.main.toolbar_fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,6 +64,28 @@ class PeopleFragment : Fragment(), OnItemClickListener {
                 }
             }
         }
+        people_frg__wr_search_tv.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                filterList(s.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
+    }
+
+    private fun filterList(str: String) {
+        val sortedList: MutableList<Person> = ArrayList()
+        for (item in App.instance.PERSONS) {
+            if (str.replace(" ","") in (item.lastName + item.firstName + item.firstName).toLowerCase()) {
+                sortedList.add(item)
+            }
+        }
+        itemAdapter.update(sortedList)
     }
 
     private fun createList() {
@@ -83,6 +107,7 @@ class PeopleFragment : Fragment(), OnItemClickListener {
 
         PersonApi.getAllPerson(TOKEN) {
             if (it != null) {
+                App.instance.PERSONS = it
                 itemAdapter = RecyclerAdapter(it, this)
                 people_frg__recycler.layoutManager = LinearLayoutManager(requireContext())
                 people_frg__recycler.adapter = itemAdapter
@@ -95,6 +120,7 @@ class PeopleFragment : Fragment(), OnItemClickListener {
 
     override fun onResume() {
         super.onResume()
+        people_frg__wr_search_tv.text.clear()
         Timber.i("ON RESUME")
     }
 

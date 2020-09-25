@@ -39,4 +39,11 @@
         <item name="android:paddingTop">@dimen/spacing_one_fourth_mid_5</item>
     </style>
 
+    <style name="Text.ManualInput" parent="Text">
+        <item name="android:textSize">@dimen/font_massive__16</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:textColorHint">#999999</item>
+    </style>
 </resources>

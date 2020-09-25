@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 
 //const val BASE_URL = "http://59e110df23f7.ngrok.io/"
-const val BASE_URL = "http://76022bdb13b6.ngrok.io"
+const val BASE_URL = "http://95c2d0aab43a.ngrok.io"
 
 object RetrofitClient {
 

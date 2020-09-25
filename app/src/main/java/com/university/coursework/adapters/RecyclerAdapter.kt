@@ -8,7 +8,7 @@ import com.university.coursework.models.dto.Person
 import kotlinx.android.synthetic.main.item_layout.view.*
 
 class RecyclerAdapter(
-    private val titles: ArrayList<Person>,
+    private var titles: ArrayList<Person>,
     private val onItemClickListener: OnItemClickListener
 ) :
     RecyclerView.Adapter<DataViewHolder>() {
@@ -27,15 +27,30 @@ class RecyclerAdapter(
 
         holder.itemView.item__card_title.text = fullName(item)
         holder.itemView.item__card_description.text = item.group.name
-        holder.itemView.item__card_image.setImageResource(R.drawable.auth_frg__user_icon)
+        val type = when (item.type) {
+            'T' -> {
+                R.drawable.ic_teacher
+            }
+            'S' -> {
+                R.drawable.ic_student
+            }
+            else -> {
+                R.drawable.ic_staff
+            }
+        }
+        holder.itemView.item__card_image.setImageResource(type)
 
-        holder.itemView.setOnClickListener{
+        holder.itemView.setOnClickListener {
             onItemClickListener.onItemClicked(position, item)
         }
-
     }
 
     private fun fullName(item: Person): CharSequence? {
         return "${item.lastName} ${item.firstName} ${item.middleName}"
+    }
+
+    fun update(sortedList: MutableList<Person>) {
+        titles = sortedList as ArrayList<Person>
+        notifyDataSetChanged()
     }
 }
