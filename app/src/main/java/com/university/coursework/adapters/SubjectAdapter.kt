@@ -26,6 +26,25 @@ class SubjectAdapter(
         val item = titles[position]
 
         holder.itemView.item__card_title.text = item.name
-        holder.itemView.item__card_image.setImageResource(R.drawable.auth_frg__user_icon)
+        val type = when (item.name.toLowerCase()) {
+            "biology" -> {
+                R.drawable.ic_biology
+            }
+            "oop" -> {
+                R.drawable.ic_kotlin
+            }
+            "math" -> {
+                R.drawable.ic_mathematics
+
+            }
+            "diskretka" -> {
+                R.drawable.ic_diskretka
+
+            }
+            else -> {
+                R.drawable.ic_book
+            }
+        }
+        holder.itemView.item__card_image.setImageResource(type)
     }
 }

@@ -27,6 +27,19 @@ class GroupsAdapter(
         val item = titles[position]
 
         holder.itemView.item__card_title.text = item.name
-        holder.itemView.item__card_image.setImageResource(R.drawable.auth_frg__user_icon)
+        val type = when (item.name) {
+            "TEACHERS" -> {
+                R.drawable.ic_teacher
+            }
+            "STUDENTS" -> {
+                R.drawable.ic_student
+            }
+            else -> {
+                R.drawable.ic_staff
+            }
+        }
+        holder.itemView.item__card_image.setImageResource(type)
+
+        holder.itemView.item__card_image.setImageResource(type)
     }
 }

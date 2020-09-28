@@ -31,7 +31,6 @@ class App : Application(), CiceroneHandler {
     companion object {
         @JvmStatic
         lateinit var instance: App
-        // private set
     }
 
     override fun onCreate() {

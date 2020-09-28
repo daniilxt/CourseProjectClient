@@ -19,11 +19,14 @@ import com.university.coursework.api.marks.MarksApi
 import com.university.coursework.app.App
 import com.university.coursework.bus.Event
 import com.university.coursework.bus.EventBus
+import com.university.coursework.helper.CiceroneHelper
 import com.university.coursework.helper.Role
 import com.university.coursework.helper.SpinnerTag
 import com.university.coursework.models.dto.Mark
 import com.university.coursework.models.dto.Person
 import com.university.coursework.models.dto.Subject
+import com.university.coursework.screens.AuthScreen
+import com.university.coursework.screens.InfoScreen
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.people_info_fragment.*
 import kotlinx.android.synthetic.main.people_info_fragment.view.*
@@ -245,16 +248,19 @@ class PeopleInfoFragment : Fragment() {
 
                     val item =
                         object : SwipeToDeleteCallback(requireContext(), 0, ItemTouchHelper.LEFT) {
-                            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                            override fun onSwiped(
+                                viewHolder: RecyclerView.ViewHolder,
+                                direction: Int
+                            ) {
                                 itemAdapter.del(viewHolder.absoluteAdapterPosition)
                             }
                         }
-                    if (App.instance.CLIENT_ROLE == Role.ADMIN || App.instance.CLIENT_ROLE == Role.TEACHER) {
+                    if (App.instance.CLIENT_ROLE == Role.ADMIN) {
                         val itemTouchHelper = ItemTouchHelper(item)
                         itemTouchHelper.attachToRecyclerView(people_info_frg__recycler)
                     }
                 } else {
-                    //CiceroneHelper.router().navigateTo(InfoScreen())
+                    CiceroneHelper.router().navigateTo(AuthScreen())
                 }
             }
         }

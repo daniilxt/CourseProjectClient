@@ -1,11 +1,9 @@
 package com.university.coursework.api.person
 
+import com.university.coursework.models.dto.Mark
 import com.university.coursework.models.dto.Person
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 
 interface PersonService {
@@ -22,4 +20,9 @@ interface PersonService {
         @Body data: Person
     ): Call<Person>
 
+    @DELETE("person/delete/{id}")
+    fun deletePerson(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ): Call<Person>
 }

@@ -9,17 +9,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.university.coursework.bus.EventBus
 import com.university.coursework.R
 import com.university.coursework.adapters.GroupsAdapter
-import com.university.coursework.adapters.SubjectAdapter
 import com.university.coursework.api.group.GroupApi
-import com.university.coursework.api.person.PersonApi
-import com.university.coursework.api.subject.SubjectApi
 import com.university.coursework.app.App
+import com.university.coursework.extensions.showCreateGroupDialog
+import com.university.coursework.helper.CiceroneHelper
+import com.university.coursework.helper.Role
 import com.university.coursework.models.dto.Group
-import com.university.coursework.models.dto.Person
-import com.university.coursework.models.dto.Subject
+import com.university.coursework.screens.AuthScreen
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.groups_fragment.*
-import kotlinx.android.synthetic.main.subject_fragment.*
+import kotlinx.android.synthetic.main.people_fragment.*
 import timber.log.Timber
 
 
@@ -45,26 +44,42 @@ class GroupsFragment : Fragment() {
 //todo
             }
         }
+        if (App.instance.CLIENT_ROLE == Role.ADMIN) {
+            groups_frg__btn_add.visibility = View.VISIBLE
+        }
         initComponents()
         createList()
+        initButtons()
+    }
+
+    private fun initButtons() {
+        groups_frg__btn_add.setOnClickListener {
+            showCreateGroupDialog(true) {
+                GroupApi.createGroup(TOKEN, it as Group) {
+                    println("TOKEN IS: $TOKEN")
+                    createList()
+                }
+            }
+        }
     }
 
     private fun createList() {
         GroupApi.getAllGroups(TOKEN) {
             if (it != null) {
+                println("TOKEN IS: $TOKEN")
                 App.instance.GROUPS = it as ArrayList<Group>
                 itemAdapter = GroupsAdapter(it)
                 groups_frg__recycler.layoutManager = LinearLayoutManager(requireContext())
                 groups_frg__recycler.adapter = itemAdapter
                 itemAdapter.notifyDataSetChanged()
             } else {
+                CiceroneHelper.router().navigateTo(AuthScreen())
                 //CiceroneHelper.router().navigateTo(InfoScreen())
             }
         }
     }
 
     private fun initComponents() {
-
         GroupApi.getAllGroups(TOKEN) { it ->
             if (it != null) {
                 App.instance.GROUPS = it as ArrayList<Group>

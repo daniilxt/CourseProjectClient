@@ -26,12 +26,12 @@
         android:id="@+id/people_frg__wr_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_tiny_4"
-        android:background="@drawable/people_frg__rounded"
-        android:orientation="horizontal"
         android:layout_marginStart="@dimen/spacing_big_30"
+        android:layout_marginTop="@dimen/spacing_tiny_4"
         android:layout_marginEnd="@dimen/spacing_big_30"
         android:layout_marginBottom="@dimen/spacing_half_mid_10"
+        android:background="@drawable/people_frg__rounded"
+        android:orientation="horizontal"
         android:paddingStart="@dimen/spacing_half_big_15"
         android:paddingTop="@dimen/spacing_half_big_15"
         android:paddingBottom="@dimen/spacing_half_big_15"
@@ -48,28 +48,15 @@
 
         <EditText
             android:id="@+id/people_frg__wr_search_tv"
+            style="@style/Text.ManualInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Введите человека"
-            android:textColor="@android:color/black"
-            style="@style/Text.ManualInput"
             android:inputType="textShortMessage"
-            android:maxLength="50" />
+            android:maxLength="50"
+            android:textColor="@android:color/black" />
 
     </LinearLayout>
-<!--    <EditText
-        android:id="@+id/people_frg__wr_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/spacing_tiny_4"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@android:color/transparent"
-        android:paddingStart="@dimen/spacing_tiny_4"
-        android:drawableStart="@drawable/people_frg__wr_search"
-        android:layout_marginStart="@dimen/spacing_big_30"
-        android:layout_marginEnd="@dimen/spacing_big_30"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/people_frg__btn_add"
@@ -77,9 +64,11 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/slightly_large_icon_25"
         android:src="@drawable/add_btn"
+        android:visibility="invisible"
         app:backgroundTint="#0000ff"
         app:borderWidth="0dp"
         app:elevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

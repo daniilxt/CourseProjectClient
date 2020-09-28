@@ -4,8 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.university.coursework.R
+import com.university.coursework.api.marks.MarksApi
+import com.university.coursework.api.person.PersonApi
+import com.university.coursework.app.App
 import com.university.coursework.models.dto.Person
 import kotlinx.android.synthetic.main.item_layout.view.*
+import timber.log.Timber
 
 class RecyclerAdapter(
     private var titles: ArrayList<Person>,
@@ -48,7 +52,16 @@ class RecyclerAdapter(
     private fun fullName(item: Person): CharSequence? {
         return "${item.lastName} ${item.firstName} ${item.middleName}"
     }
-
+    fun del(position: Int) {
+        Timber.i("POSITION $position  $titles  ${titles.size}")
+        val deleted = titles[position]
+        titles.removeAt(position)
+        deleted.id?.let {
+            PersonApi.deletePerson(App.instance.TOKEN, it) {
+                notifyDataSetChanged()
+            }
+        }
+    }
     fun update(sortedList: MutableList<Person>) {
         titles = sortedList as ArrayList<Person>
         notifyDataSetChanged()

@@ -50,12 +50,16 @@ class AuthFragment : Fragment() {
 
         buttonEnter.setOnClickListener {
             if (auth_frg__login_input.text.toString()
-                    .isNotEmpty() && auth_frg__password_input.text.toString().isNotEmpty()
+                    .isNotEmpty() && auth_frg__password_input.text.toString().length == 4 &&
+                auth_frg__password_input.text.toString().isNotEmpty()
             ) {
                 validateUser(
                     auth_frg__login_input.text.toString(),
                     auth_frg__password_input.text.toString()
                 )
+            } else {
+                Toast.makeText(requireContext(), "Проверьте логин/пароль", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }

@@ -6,21 +6,25 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.university.coursework.R
 import com.university.coursework.adapters.OnItemClickListener
 import com.university.coursework.adapters.RecyclerAdapter
+import com.university.coursework.adapters.SwipeToDeleteCallback
 import com.university.coursework.api.person.PersonApi
-import com.university.coursework.api.group.GroupApi
 import com.university.coursework.api.subject.SubjectApi
 import com.university.coursework.app.App
 import com.university.coursework.bus.EventBus
-import com.university.coursework.extensions.showChildFragment
 import com.university.coursework.helper.CiceroneHelper
-import com.university.coursework.helper.showCreateHumanDialog
+import com.university.coursework.helper.Role
+import com.university.coursework.extensions.showCreateHumanDialog
 import com.university.coursework.models.dto.Person
 import com.university.coursework.models.dto.Subject
+import com.university.coursework.screens.AuthScreen
 import com.university.coursework.screens.InfoScreen
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.people_fragment.*
@@ -47,12 +51,29 @@ class PeopleFragment : Fragment(), OnItemClickListener {
         }
         Timber.i("TOKEN IS $TOKEN")
         createList()
+        delItemFunction()
         initButtons()
 
         disposablePeople = EventBus.get().subscribe { obj ->
             when (obj) {
                 //todo
             }
+        }
+        if (App.instance.CLIENT_ROLE == Role.ADMIN) {
+           people_frg__btn_add.visibility = View.VISIBLE
+        }
+    }
+
+    private fun delItemFunction() {
+        val item =
+            object : SwipeToDeleteCallback(requireContext(), 0, ItemTouchHelper.LEFT) {
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    itemAdapter.del(viewHolder.absoluteAdapterPosition)
+                }
+            }
+        if (App.instance.CLIENT_ROLE == Role.ADMIN) {
+            val itemTouchHelper = ItemTouchHelper(item)
+            itemTouchHelper.attachToRecyclerView(people_frg__recycler)
         }
     }
 
@@ -81,7 +102,11 @@ class PeopleFragment : Fragment(), OnItemClickListener {
     private fun filterList(str: String) {
         val sortedList: MutableList<Person> = ArrayList()
         for (item in App.instance.PERSONS) {
-            if (str.replace(" ","") in (item.lastName + item.firstName + item.firstName).toLowerCase()) {
+            if (str.replace(
+                    " ",
+                    ""
+                ) in (item.lastName + item.firstName + item.firstName).toLowerCase()
+            ) {
                 sortedList.add(item)
             }
         }
@@ -113,6 +138,7 @@ class PeopleFragment : Fragment(), OnItemClickListener {
                 people_frg__recycler.adapter = itemAdapter
                 itemAdapter.notifyDataSetChanged()
             } else {
+                CiceroneHelper.router().navigateTo(AuthScreen())
                 //CiceroneHelper.router().navigateTo(InfoScreen())
             }
         }
@@ -125,16 +151,17 @@ class PeopleFragment : Fragment(), OnItemClickListener {
     }
 
     override fun onItemClicked(position: Int, item: Person) {
-        val bundle = Bundle()
-        bundle.putString("token", TOKEN)
-        bundle.putSerializable("item", item)
-        CiceroneHelper.router().navigateTo(InfoScreen(bundle))
-    }
-
-    private fun showAction(fragment: Fragment) {
-        val bundle = Bundle()
-        bundle.putString("fragment", "top")
-        fragment.arguments = bundle
-        showChildFragment(fragment, R.id.people_frg__container)
+        if (item.type == 'S') {
+            val bundle = Bundle()
+            bundle.putString("token", TOKEN)
+            bundle.putSerializable("item", item)
+            CiceroneHelper.router().navigateTo(InfoScreen(bundle))
+            return
+        }
+        Toast.makeText(
+            requireContext(),
+            "Посмотреть оценки можно только у студента",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }

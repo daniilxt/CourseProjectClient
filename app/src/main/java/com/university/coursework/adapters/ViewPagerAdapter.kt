@@ -13,13 +13,17 @@ class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle,bu
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
     val peopleFrg = PeopleFragment()
+    val groupsFrg = GroupsFragment()
+    val subjectsFrg = SubjectFragment()
     init {
         peopleFrg.arguments = bundle
+        groupsFrg.arguments = bundle
+        subjectsFrg.arguments = bundle
     }
     val fragmentList:ArrayList<Fragment> = arrayListOf(
-        GroupsFragment(),
+        groupsFrg,
         peopleFrg,
-        SubjectFragment()
+        subjectsFrg
     )
 
     override fun getItemCount(): Int {

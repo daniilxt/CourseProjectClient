@@ -9,7 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.university.coursework.R
 import com.university.coursework.adapters.SubjectAdapter
 import com.university.coursework.api.subject.SubjectApi
+import com.university.coursework.app.App
 import com.university.coursework.bus.EventBus
+import com.university.coursework.extensions.showCreateGroupDialog
+import com.university.coursework.helper.CiceroneHelper
+import com.university.coursework.helper.Role
+import com.university.coursework.models.dto.Subject
+import com.university.coursework.screens.AuthScreen
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.subject_fragment.*
 import timber.log.Timber
@@ -37,7 +43,24 @@ class SubjectFragment : Fragment() {
                 //todo
             }
         }
+        if (App.instance.CLIENT_ROLE == Role.ADMIN) {
+            subject_frg__btn_add.visibility = View.VISIBLE
+        }
+        initButtons()
         createList()
+    }
+
+    private fun initButtons() {
+        subject_frg__btn_add.setOnClickListener {
+            showCreateGroupDialog(false) {
+                println(it)
+                println(it as Subject)
+                SubjectApi.createSubject(TOKEN, it as Subject) {
+                    println("TOKEN IS: $TOKEN")
+                    createList()
+                }
+            }
+        }
     }
 
     private fun createList() {
@@ -49,6 +72,7 @@ class SubjectFragment : Fragment() {
                 subject_frg__recycler.adapter = itemAdapter
                 itemAdapter.notifyDataSetChanged()
             } else {
+                CiceroneHelper.router().navigateTo(AuthScreen())
                 //CiceroneHelper.router().navigateTo(InfoScreen())
             }
         }
