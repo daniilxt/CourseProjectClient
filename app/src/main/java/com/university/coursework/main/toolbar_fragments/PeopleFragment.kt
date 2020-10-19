@@ -87,7 +87,7 @@ class PeopleFragment : Fragment(), OnItemClickListener {
         }
         people_frg__wr_search_tv.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                filterList(s.toString())
+                filterList(s.toString().toLowerCase())
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
